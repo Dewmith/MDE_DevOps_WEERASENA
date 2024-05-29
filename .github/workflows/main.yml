@@ -20,8 +20,11 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
 
-      - name: Build and test with Maven
-        run: mvn clean verify
+      - name: SonarQube Scan
+        run: mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=devop-organisation_devop-project
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: Build Docker images
         run: |
@@ -37,9 +40,3 @@ jobs:
           docker push deghostt/tp1-database:latest
           docker push deghostt/tp1-backend:latest
           docker push deghostt/tp1-httpd:latest
-
-      - name: SonarQube Scan
-        uses: sonarsource/sonarcloud-github-action@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

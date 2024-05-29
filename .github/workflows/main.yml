@@ -51,7 +51,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: ./httpd
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp1-httpd:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/tp1-httpd:latest
           push: ${{ github.ref == 'refs/heads/main' }}
 
           

@@ -21,8 +21,7 @@ jobs:
           distribution: 'adopt'
 
       - name: SonarQube Scan
-        run: mvn -B verify sonar:sonar -Dsonar.projectKey=devop-organisation_devop-project -Dsonar.organization=devop_organisation -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}  --file ./Backend/simple-api-student-main/pom.xml
-
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=devop_project -Dsonar.organization=devop_organisation -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }} --file ./Backend/simple-api-student-main/pom.xml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

@@ -21,7 +21,7 @@ jobs:
           distribution: 'adopt'
 
       - name: SonarQube Scan
-        run: mvn -B verify sonar:sonar -Dsonar.projectKey=devops-2024 -Dsonar.organization=devops_project -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}  --file ./Backend/simple-api-student-main/pom.xml
+        run: mvn -B verify sonar:sonar -Dsonar.projectKey=devops_project -Dsonar.organization=devops_organisation -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}  --file ./Backend/simple-api-student-main/pom.xml
 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,47 @@
+services:
+    backend:
+        container_name: backend
+        build: .\Backend\simple-api-student-main\
+        environment:
+            DB_host: postgres
+            DB_port: 5432
+            DB_name: db
+            DB_user: usr
+            DB_mdp: pwd
+        ports:
+            
+          - "8080:8080"
+        networks:
+          - app-network
+        depends_on:
+          - database
+
+    database:
+        container_name: database
+        build: .\postgres\
+        environment:
+            POSTGRES_DB: db
+            POSTGRES_USER: usr
+            POSTGRES_PASSWORD: pwd
+        volumes:
+          - postgresdata:/var/lib/postgresql/data
+        networks:
+          - app-network
+
+    httpd:
+        container_name: httpd
+        build: .\httpd\
+        environment:
+            BACKEND_host: backend
+        ports:    
+          - "80:80"
+        networks:
+          - app-network
+        depends_on:
+          - backend
+
+networks:
+    app-network:
+
+volumes:
+    postgresdata:

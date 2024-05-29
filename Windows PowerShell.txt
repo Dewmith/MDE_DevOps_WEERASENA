@@ -1,0 +1,1217 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\Backend\simple-api-student-main> docker build -t backend_api_adv .
+[+] Building 0.0s (0/0)  docker:default
+2024/05/27 18:48:09 http2: server: error reading preface from client //./pipe/docker_engine: file has already been close[+] Building 127.4s (14/14) FINISHED                                                                     docker:default
+ => [internal] load build definition from Dockerfile                                                               0.1s
+ => => transferring dockerfile: 395B                                                                               0.0s
+ => [internal] load metadata for docker.io/library/maven:3.8.6-amazoncorretto-17                                   2.1s
+ => [internal] load metadata for docker.io/library/amazoncorretto:17                                               2.1s
+ => [internal] load .dockerignore                                                                                  0.0s
+ => => transferring context: 2B                                                                                    0.0s
+ => [stage-1 1/3] FROM docker.io/library/amazoncorretto:17@sha256:ffb6aebcaa434785a2ad0797ea8f38b33237abcd013f761  0.0s
+ => [myapp-build 1/5] FROM docker.io/library/maven:3.8.6-amazoncorretto-17@sha256:f503dcd8524c0b6db676d2607c4b6f3  0.0s
+ => [internal] load build context                                                                                  0.2s
+ => => transferring context: 47.46kB                                                                               0.2s
+ => CACHED [myapp-build 2/5] WORKDIR /opt/myapp                                                                    0.0s
+ => [myapp-build 3/5] COPY pom.xml .                                                                               0.2s
+ => [myapp-build 4/5] COPY src ./src                                                                               0.3s
+ => [myapp-build 5/5] RUN mvn package -DskipTests                                                                101.8s
+ => CACHED [stage-1 2/3] WORKDIR /opt/myapp                                                                        0.0s
+ => [stage-1 3/3] COPY --from=myapp-build /opt/myapp/target/*.jar /opt/myapp/myapp.jar                             1.0s
+ => exporting to image                                                                                             0.6s
+ => => exporting layers                                                                                            0.3s
+ => => writing image sha256:c2fa18367f59a6739c79dc433656fc20489df4f7cc350b19408249b78305eafe                       0.0s
+ => => naming to docker.io/library/backend_api_adv                                                                 0.1s
+
+What's Next?
+  View a summary of image vulnerabilities and recommendations → docker scout quickview
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\Backend\simple-api-student-main> docker run --rm -p 8081:8080 backend_api_adv
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.7.5)
+
+2024-05-27 16:54:00.584  INFO 1 --- [           main] f.t.t.simpleapi.SimpleApiApplication     : Starting SimpleApiApplication v0.0.1-SNAPSHOT using Java 17.0.11 on 08191bdb7c52 with PID 1 (/opt/myapp/myapp.jar started by root in /opt/myapp)
+2024-05-27 16:54:00.604  INFO 1 --- [           main] f.t.t.simpleapi.SimpleApiApplication     : No active profile set, falling back to 1 default profile: "default"
+2024-05-27 16:54:08.418  INFO 1 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-27 16:54:08.683  INFO 1 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 214 ms. Found 2 JPA repository interfaces.
+2024-05-27 16:54:12.168  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2024-05-27 16:54:12.248  INFO 1 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-05-27 16:54:12.249  INFO 1 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.68]
+2024-05-27 16:54:12.629  INFO 1 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-05-27 16:54:12.629  INFO 1 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 10699 ms
+2024-05-27 16:54:14.809  INFO 1 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-05-27 16:54:16.010 ERROR 1 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Exception during pool initialization.
+
+org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
+        at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:319) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:49) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:223) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.Driver.makeConnection(Driver.java:402) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.Driver.connect(Driver.java:261) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:364) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:206) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:476) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112) ~[HikariCP-4.0.3.jar!/:na]
+        at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:159) ~[spring-jdbc-5.3.23.jar!/:5.3.23]
+        at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:117) ~[spring-jdbc-5.3.23.jar!/:5.3.23]
+        at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:80) ~[spring-jdbc-5.3.23.jar!/:5.3.23]
+        at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:330) ~[spring-jdbc-5.3.23.jar!/:5.3.23]
+        at org.springframework.boot.jdbc.EmbeddedDatabaseConnection.isEmbedded(EmbeddedDatabaseConnection.java:162) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.autoconfigure.orm.jpa.HibernateDefaultDdlAutoProvider.getDefaultDdlAuto(HibernateDefaultDdlAutoProvider.java:42) ~[spring-boot-autoconfigure-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaConfiguration.lambda$getVendorProperties$1(HibernateJpaConfiguration.java:130) ~[spring-boot-autoconfigure-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.autoconfigure.orm.jpa.HibernateSettings.getDdlAuto(HibernateSettings.java:41) ~[spring-boot-autoconfigure-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.autoconfigure.orm.jpa.HibernateProperties.determineDdlAuto(HibernateProperties.java:143) ~[spring-boot-autoconfigure-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.autoconfigure.orm.jpa.HibernateProperties.getAdditionalProperties(HibernateProperties.java:103) ~[spring-boot-autoconfigure-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.autoconfigure.orm.jpa.HibernateProperties.determineHibernateProperties(HibernateProperties.java:95) ~[spring-boot-autoconfigure-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaConfiguration.getVendorProperties(HibernateJpaConfiguration.java:132) ~[spring-boot-autoconfigure-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration.entityManagerFactory(JpaBaseConfiguration.java:132) ~[spring-boot-autoconfigure-2.7.5.jar!/:2.7.5]
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+        at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+        at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+        at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:154) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:653) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:638) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1352) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1195) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:582) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1154) ~[spring-context-5.3.23.jar!/:5.3.23]
+        at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:908) ~[spring-context-5.3.23.jar!/:5.3.23]
+        at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583) ~[spring-context-5.3.23.jar!/:5.3.23]
+        at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:147) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:734) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:408) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:308) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at fr.takima.training.simpleapi.SimpleApiApplication.main(SimpleApiApplication.java:10) ~[classes!/:0.0.1-SNAPSHOT]
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+        at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+        at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+        at org.springframework.boot.loader.MainMethodRunner.run(MainMethodRunner.java:49) ~[myapp.jar:0.0.1-SNAPSHOT]
+        at org.springframework.boot.loader.Launcher.launch(Launcher.java:108) ~[myapp.jar:0.0.1-SNAPSHOT]
+        at org.springframework.boot.loader.Launcher.launch(Launcher.java:58) ~[myapp.jar:0.0.1-SNAPSHOT]
+        at org.springframework.boot.loader.JarLauncher.main(JarLauncher.java:65) ~[myapp.jar:0.0.1-SNAPSHOT]
+Caused by: java.net.ConnectException: Connection refused
+        at java.base/sun.nio.ch.Net.pollConnect(Native Method) ~[na:na]
+        at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:672) ~[na:na]
+        at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:547) ~[na:na]
+        at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:602) ~[na:na]
+        at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327) ~[na:na]
+        at java.base/java.net.Socket.connect(Socket.java:633) ~[na:na]
+        at org.postgresql.core.PGStream.createSocket(PGStream.java:241) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.core.PGStream.<init>(PGStream.java:98) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:109) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:235) ~[postgresql-42.3.7.jar!/:42.3.7]
+        ... 57 common frames omitted
+
+2024-05-27 16:54:16.095  INFO 1 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-05-27 16:54:16.245  INFO 1 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.12.Final
+2024-05-27 16:54:16.830  INFO 1 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-05-27 16:54:17.234  INFO 1 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-05-27 16:54:18.237 ERROR 1 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Exception during pool initialization.
+
+org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
+        at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:319) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:49) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:223) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.Driver.makeConnection(Driver.java:402) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.Driver.connect(Driver.java:261) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:364) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:206) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:476) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112) ~[HikariCP-4.0.3.jar!/:na]
+        at org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.getConnection(DatasourceConnectionProviderImpl.java:122) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess.obtainConnection(JdbcEnvironmentInitiator.java:181) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:68) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:35) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:101) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:263) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:237) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:214) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory.injectServices(DefaultIdentifierGeneratorFactory.java:175) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.injectDependencies(AbstractServiceRegistryImpl.java:286) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:243) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:214) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.<init>(InFlightMetadataCollectorImpl.java:173) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:127) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1460) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1494) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58) ~[spring-orm-5.3.23.jar!/:5.3.23]
+        at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365) ~[spring-orm-5.3.23.jar!/:5.3.23]
+        at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409) ~[spring-orm-5.3.23.jar!/:5.3.23]
+        at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396) ~[spring-orm-5.3.23.jar!/:5.3.23]
+        at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:341) ~[spring-orm-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1863) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1800) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:620) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1154) ~[spring-context-5.3.23.jar!/:5.3.23]
+        at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:908) ~[spring-context-5.3.23.jar!/:5.3.23]
+        at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583) ~[spring-context-5.3.23.jar!/:5.3.23]
+        at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:147) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:734) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:408) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:308) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at fr.takima.training.simpleapi.SimpleApiApplication.main(SimpleApiApplication.java:10) ~[classes!/:0.0.1-SNAPSHOT]
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+        at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+        at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+        at org.springframework.boot.loader.MainMethodRunner.run(MainMethodRunner.java:49) ~[myapp.jar:0.0.1-SNAPSHOT]
+        at org.springframework.boot.loader.Launcher.launch(Launcher.java:108) ~[myapp.jar:0.0.1-SNAPSHOT]
+        at org.springframework.boot.loader.Launcher.launch(Launcher.java:58) ~[myapp.jar:0.0.1-SNAPSHOT]
+        at org.springframework.boot.loader.JarLauncher.main(JarLauncher.java:65) ~[myapp.jar:0.0.1-SNAPSHOT]
+Caused by: java.net.ConnectException: Connection refused
+        at java.base/sun.nio.ch.Net.pollConnect(Native Method) ~[na:na]
+        at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:672) ~[na:na]
+        at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:547) ~[na:na]
+        at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:602) ~[na:na]
+        at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327) ~[na:na]
+        at java.base/java.net.Socket.connect(Socket.java:633) ~[na:na]
+        at org.postgresql.core.PGStream.createSocket(PGStream.java:241) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.core.PGStream.<init>(PGStream.java:98) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:109) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:235) ~[postgresql-42.3.7.jar!/:42.3.7]
+        ... 58 common frames omitted
+
+2024-05-27 16:54:18.241  WARN 1 --- [           main] o.h.e.j.e.i.JdbcEnvironmentInitiator     : HHH000342: Could not obtain connection to query metadata
+
+org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
+        at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:319) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:49) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:223) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.Driver.makeConnection(Driver.java:402) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.Driver.connect(Driver.java:261) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:364) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:206) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:476) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112) ~[HikariCP-4.0.3.jar!/:na]
+        at org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.getConnection(DatasourceConnectionProviderImpl.java:122) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess.obtainConnection(JdbcEnvironmentInitiator.java:181) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:68) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:35) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:101) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:263) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:237) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:214) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory.injectServices(DefaultIdentifierGeneratorFactory.java:175) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.injectDependencies(AbstractServiceRegistryImpl.java:286) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:243) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:214) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.<init>(InFlightMetadataCollectorImpl.java:173) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:127) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1460) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1494) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58) ~[spring-orm-5.3.23.jar!/:5.3.23]
+        at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365) ~[spring-orm-5.3.23.jar!/:5.3.23]
+        at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409) ~[spring-orm-5.3.23.jar!/:5.3.23]
+        at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396) ~[spring-orm-5.3.23.jar!/:5.3.23]
+        at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:341) ~[spring-orm-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1863) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1800) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:620) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1154) ~[spring-context-5.3.23.jar!/:5.3.23]
+        at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:908) ~[spring-context-5.3.23.jar!/:5.3.23]
+        at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583) ~[spring-context-5.3.23.jar!/:5.3.23]
+        at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:147) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:734) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:408) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:308) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at fr.takima.training.simpleapi.SimpleApiApplication.main(SimpleApiApplication.java:10) ~[classes!/:0.0.1-SNAPSHOT]
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+        at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+        at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+        at org.springframework.boot.loader.MainMethodRunner.run(MainMethodRunner.java:49) ~[myapp.jar:0.0.1-SNAPSHOT]
+        at org.springframework.boot.loader.Launcher.launch(Launcher.java:108) ~[myapp.jar:0.0.1-SNAPSHOT]
+        at org.springframework.boot.loader.Launcher.launch(Launcher.java:58) ~[myapp.jar:0.0.1-SNAPSHOT]
+        at org.springframework.boot.loader.JarLauncher.main(JarLauncher.java:65) ~[myapp.jar:0.0.1-SNAPSHOT]
+Caused by: java.net.ConnectException: Connection refused
+        at java.base/sun.nio.ch.Net.pollConnect(Native Method) ~[na:na]
+        at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:672) ~[na:na]
+        at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:547) ~[na:na]
+        at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:602) ~[na:na]
+        at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327) ~[na:na]
+        at java.base/java.net.Socket.connect(Socket.java:633) ~[na:na]
+        at org.postgresql.core.PGStream.createSocket(PGStream.java:241) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.core.PGStream.<init>(PGStream.java:98) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:109) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:235) ~[postgresql-42.3.7.jar!/:42.3.7]
+        ... 58 common frames omitted
+
+2024-05-27 16:54:18.257 ERROR 1 --- [           main] j.LocalContainerEntityManagerFactoryBean : Failed to initialize JPA EntityManagerFactory: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
+2024-05-27 16:54:18.259  WARN 1 --- [           main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Invocation of init method failed; nested exception is org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
+2024-05-27 16:54:18.281  INFO 1 --- [           main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-05-27 16:54:18.338  INFO 1 --- [           main] ConditionEvaluationReportLoggingListener :
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2024-05-27 16:54:18.454 ERROR 1 --- [           main] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Invocation of init method failed; nested exception is org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1804) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:620) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1154) ~[spring-context-5.3.23.jar!/:5.3.23]
+        at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:908) ~[spring-context-5.3.23.jar!/:5.3.23]
+        at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583) ~[spring-context-5.3.23.jar!/:5.3.23]
+        at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:147) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:734) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:408) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:308) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at fr.takima.training.simpleapi.SimpleApiApplication.main(SimpleApiApplication.java:10) ~[classes!/:0.0.1-SNAPSHOT]
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+        at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+        at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+        at org.springframework.boot.loader.MainMethodRunner.run(MainMethodRunner.java:49) ~[myapp.jar:0.0.1-SNAPSHOT]
+        at org.springframework.boot.loader.Launcher.launch(Launcher.java:108) ~[myapp.jar:0.0.1-SNAPSHOT]
+        at org.springframework.boot.loader.Launcher.launch(Launcher.java:58) ~[myapp.jar:0.0.1-SNAPSHOT]
+        at org.springframework.boot.loader.JarLauncher.main(JarLauncher.java:65) ~[myapp.jar:0.0.1-SNAPSHOT]
+Caused by: org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:275) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:237) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:214) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory.injectServices(DefaultIdentifierGeneratorFactory.java:175) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.injectDependencies(AbstractServiceRegistryImpl.java:286) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:243) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:214) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.<init>(InFlightMetadataCollectorImpl.java:173) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:127) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1460) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1494) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58) ~[spring-orm-5.3.23.jar!/:5.3.23]
+        at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365) ~[spring-orm-5.3.23.jar!/:5.3.23]
+        at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409) ~[spring-orm-5.3.23.jar!/:5.3.23]
+        at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396) ~[spring-orm-5.3.23.jar!/:5.3.23]
+        at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:341) ~[spring-orm-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1863) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1800) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        ... 24 common frames omitted
+Caused by: org.hibernate.HibernateException: Access to DialectResolutionInfo cannot be null when 'hibernate.dialect' not set
+        at org.hibernate.engine.jdbc.dialect.internal.DialectFactoryImpl.determineDialect(DialectFactoryImpl.java:100) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.engine.jdbc.dialect.internal.DialectFactoryImpl.buildDialect(DialectFactoryImpl.java:54) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:138) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:35) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:101) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:263) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        ... 41 common frames omitted
+
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\Backend\simple-api-student-main> docker build -t backend_api_adv .
+[+] Building 0.0s (0/0)  docker:default
+[+] Building 98.1s (14/14) FINISHED                                                                                                          docker:default
+ => [internal] load build definition from Dockerfile                                                                                                   0.1s
+ => => transferring dockerfile: 395B                                                                                                                   0.1s
+ => [internal] load metadata for docker.io/library/maven:3.8.6-amazoncorretto-17                                                                       2.6s
+ => [internal] load metadata for docker.io/library/amazoncorretto:17                                                                                   2.6s
+ => [internal] load .dockerignore                                                                                                                      0.0s
+ => => transferring context: 2B                                                                                                                        0.0s
+ => [myapp-build 1/5] FROM docker.io/library/maven:3.8.6-amazoncorretto-17@sha256:f503dcd8524c0b6db676d2607c4b6f384f276f98aa914fb6ab761c58e96120c7     0.0s
+ => [stage-1 1/3] FROM docker.io/library/amazoncorretto:17@sha256:ffb6aebcaa434785a2ad0797ea8f38b33237abcd013f7613f8f6ac748e48ab02                     0.0s
+ => [internal] load build context                                                                                                                      0.1s
+ => => transferring context: 3.01kB                                                                                                                    0.1s
+ => CACHED [myapp-build 2/5] WORKDIR /opt/myapp                                                                                                        0.0s
+ => CACHED [myapp-build 3/5] COPY pom.xml .                                                                                                            0.0s
+ => [myapp-build 4/5] COPY src ./src                                                                                                                   0.3s
+ => [myapp-build 5/5] RUN mvn package -DskipTests                                                                                                     87.6s
+ => CACHED [stage-1 2/3] WORKDIR /opt/myapp                                                                                                            0.0s
+ => [stage-1 3/3] COPY --from=myapp-build /opt/myapp/target/*.jar /opt/myapp/myapp.jar                                                                 2.1s
+ => exporting to image                                                                                                                                 0.5s
+ => => exporting layers                                                                                                                                0.4s
+ => => writing image sha256:a138923b06a7cc82215c7a3743dd4a6f2040809c30cfd117c4e0cc0ad7fe81e1                                                           0.0s
+ => => naming to docker.io/library/backend_api_adv                                                                                                     0.0s
+
+What's Next?
+  View a summary of image vulnerabilities and recommendations → docker scout quickview
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\Backend\simple-api-student-main> docker run --rm -p 8081:8080 backend_api_adv
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.7.5)
+
+2024-05-27 17:15:53.606  INFO 1 --- [           main] f.t.t.simpleapi.SimpleApiApplication     : Starting SimpleApiApplication v0.0.1-SNAPSHOT using Java 17.0.11 on 6b06927b560e with PID 1 (/opt/myapp/myapp.jar started by root in /opt/myapp)
+2024-05-27 17:15:53.647  INFO 1 --- [           main] f.t.t.simpleapi.SimpleApiApplication     : No active profile set, falling back to 1 default profile: "default"
+2024-05-27 17:15:57.585  INFO 1 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-27 17:15:57.896  INFO 1 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 262 ms. Found 2 JPA repository interfaces.
+2024-05-27 17:16:00.828  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2024-05-27 17:16:00.910  INFO 1 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-05-27 17:16:00.916  INFO 1 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.68]
+2024-05-27 17:16:01.624  INFO 1 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-05-27 17:16:01.625  INFO 1 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 7688 ms
+2024-05-27 17:16:03.245  INFO 1 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-05-27 17:16:10.957 ERROR 1 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Exception during pool initialization.
+
+org.postgresql.util.PSQLException: The connection attempt failed.
+        at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:331) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:49) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:223) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.Driver.makeConnection(Driver.java:402) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.Driver.connect(Driver.java:261) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:364) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:206) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:476) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112) ~[HikariCP-4.0.3.jar!/:na]
+        at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:159) ~[spring-jdbc-5.3.23.jar!/:5.3.23]
+        at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:117) ~[spring-jdbc-5.3.23.jar!/:5.3.23]
+        at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:80) ~[spring-jdbc-5.3.23.jar!/:5.3.23]
+        at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:330) ~[spring-jdbc-5.3.23.jar!/:5.3.23]
+        at org.springframework.boot.jdbc.EmbeddedDatabaseConnection.isEmbedded(EmbeddedDatabaseConnection.java:162) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.autoconfigure.orm.jpa.HibernateDefaultDdlAutoProvider.getDefaultDdlAuto(HibernateDefaultDdlAutoProvider.java:42) ~[spring-boot-autoconfigure-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaConfiguration.lambda$getVendorProperties$1(HibernateJpaConfiguration.java:130) ~[spring-boot-autoconfigure-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.autoconfigure.orm.jpa.HibernateSettings.getDdlAuto(HibernateSettings.java:41) ~[spring-boot-autoconfigure-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.autoconfigure.orm.jpa.HibernateProperties.determineDdlAuto(HibernateProperties.java:143) ~[spring-boot-autoconfigure-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.autoconfigure.orm.jpa.HibernateProperties.getAdditionalProperties(HibernateProperties.java:103) ~[spring-boot-autoconfigure-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.autoconfigure.orm.jpa.HibernateProperties.determineHibernateProperties(HibernateProperties.java:95) ~[spring-boot-autoconfigure-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaConfiguration.getVendorProperties(HibernateJpaConfiguration.java:132) ~[spring-boot-autoconfigure-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration.entityManagerFactory(JpaBaseConfiguration.java:132) ~[spring-boot-autoconfigure-2.7.5.jar!/:2.7.5]
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+        at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+        at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+        at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:154) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:653) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:638) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1352) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1195) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:582) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1154) ~[spring-context-5.3.23.jar!/:5.3.23]
+        at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:908) ~[spring-context-5.3.23.jar!/:5.3.23]
+        at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583) ~[spring-context-5.3.23.jar!/:5.3.23]
+        at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:147) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:734) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:408) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:308) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at fr.takima.training.simpleapi.SimpleApiApplication.main(SimpleApiApplication.java:10) ~[classes!/:0.0.1-SNAPSHOT]
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+        at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+        at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+        at org.springframework.boot.loader.MainMethodRunner.run(MainMethodRunner.java:49) ~[myapp.jar:0.0.1-SNAPSHOT]
+        at org.springframework.boot.loader.Launcher.launch(Launcher.java:108) ~[myapp.jar:0.0.1-SNAPSHOT]
+        at org.springframework.boot.loader.Launcher.launch(Launcher.java:58) ~[myapp.jar:0.0.1-SNAPSHOT]
+        at org.springframework.boot.loader.JarLauncher.main(JarLauncher.java:65) ~[myapp.jar:0.0.1-SNAPSHOT]
+Caused by: java.net.UnknownHostException: postgres
+        at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:572) ~[na:na]
+        at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327) ~[na:na]
+        at java.base/java.net.Socket.connect(Socket.java:633) ~[na:na]
+        at org.postgresql.core.PGStream.createSocket(PGStream.java:241) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.core.PGStream.<init>(PGStream.java:98) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:109) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:235) ~[postgresql-42.3.7.jar!/:42.3.7]
+        ... 57 common frames omitted
+
+2024-05-27 17:16:11.207  INFO 1 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-05-27 17:16:12.328  INFO 1 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.12.Final
+2024-05-27 17:16:13.440  INFO 1 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-05-27 17:16:13.825  INFO 1 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-05-27 17:16:14.832 ERROR 1 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Exception during pool initialization.
+
+org.postgresql.util.PSQLException: The connection attempt failed.
+        at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:331) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:49) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:223) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.Driver.makeConnection(Driver.java:402) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.Driver.connect(Driver.java:261) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:364) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:206) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:476) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112) ~[HikariCP-4.0.3.jar!/:na]
+        at org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.getConnection(DatasourceConnectionProviderImpl.java:122) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess.obtainConnection(JdbcEnvironmentInitiator.java:181) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:68) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:35) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:101) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:263) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:237) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:214) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory.injectServices(DefaultIdentifierGeneratorFactory.java:175) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.injectDependencies(AbstractServiceRegistryImpl.java:286) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:243) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:214) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.<init>(InFlightMetadataCollectorImpl.java:173) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:127) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1460) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1494) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58) ~[spring-orm-5.3.23.jar!/:5.3.23]
+        at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365) ~[spring-orm-5.3.23.jar!/:5.3.23]
+        at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409) ~[spring-orm-5.3.23.jar!/:5.3.23]
+        at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396) ~[spring-orm-5.3.23.jar!/:5.3.23]
+        at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:341) ~[spring-orm-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1863) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1800) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:620) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1154) ~[spring-context-5.3.23.jar!/:5.3.23]
+        at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:908) ~[spring-context-5.3.23.jar!/:5.3.23]
+        at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583) ~[spring-context-5.3.23.jar!/:5.3.23]
+        at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:147) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:734) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:408) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:308) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at fr.takima.training.simpleapi.SimpleApiApplication.main(SimpleApiApplication.java:10) ~[classes!/:0.0.1-SNAPSHOT]
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+        at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+        at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+        at org.springframework.boot.loader.MainMethodRunner.run(MainMethodRunner.java:49) ~[myapp.jar:0.0.1-SNAPSHOT]
+        at org.springframework.boot.loader.Launcher.launch(Launcher.java:108) ~[myapp.jar:0.0.1-SNAPSHOT]
+        at org.springframework.boot.loader.Launcher.launch(Launcher.java:58) ~[myapp.jar:0.0.1-SNAPSHOT]
+        at org.springframework.boot.loader.JarLauncher.main(JarLauncher.java:65) ~[myapp.jar:0.0.1-SNAPSHOT]
+Caused by: java.net.UnknownHostException: postgres
+        at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:572) ~[na:na]
+        at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327) ~[na:na]
+        at java.base/java.net.Socket.connect(Socket.java:633) ~[na:na]
+        at org.postgresql.core.PGStream.createSocket(PGStream.java:241) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.core.PGStream.<init>(PGStream.java:98) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:109) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:235) ~[postgresql-42.3.7.jar!/:42.3.7]
+        ... 58 common frames omitted
+
+2024-05-27 17:16:14.837  WARN 1 --- [           main] o.h.e.j.e.i.JdbcEnvironmentInitiator     : HHH000342: Could not obtain connection to query metadata
+
+org.postgresql.util.PSQLException: The connection attempt failed.
+        at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:331) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:49) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:223) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.Driver.makeConnection(Driver.java:402) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.Driver.connect(Driver.java:261) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:364) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:206) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:476) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115) ~[HikariCP-4.0.3.jar!/:na]
+        at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112) ~[HikariCP-4.0.3.jar!/:na]
+        at org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.getConnection(DatasourceConnectionProviderImpl.java:122) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess.obtainConnection(JdbcEnvironmentInitiator.java:181) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:68) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:35) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:101) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:263) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:237) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:214) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory.injectServices(DefaultIdentifierGeneratorFactory.java:175) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.injectDependencies(AbstractServiceRegistryImpl.java:286) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:243) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:214) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.<init>(InFlightMetadataCollectorImpl.java:173) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:127) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1460) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1494) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58) ~[spring-orm-5.3.23.jar!/:5.3.23]
+        at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365) ~[spring-orm-5.3.23.jar!/:5.3.23]
+        at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409) ~[spring-orm-5.3.23.jar!/:5.3.23]
+        at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396) ~[spring-orm-5.3.23.jar!/:5.3.23]
+        at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:341) ~[spring-orm-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1863) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1800) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:620) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1154) ~[spring-context-5.3.23.jar!/:5.3.23]
+        at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:908) ~[spring-context-5.3.23.jar!/:5.3.23]
+        at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583) ~[spring-context-5.3.23.jar!/:5.3.23]
+        at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:147) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:734) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:408) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:308) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at fr.takima.training.simpleapi.SimpleApiApplication.main(SimpleApiApplication.java:10) ~[classes!/:0.0.1-SNAPSHOT]
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+        at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+        at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+        at org.springframework.boot.loader.MainMethodRunner.run(MainMethodRunner.java:49) ~[myapp.jar:0.0.1-SNAPSHOT]
+        at org.springframework.boot.loader.Launcher.launch(Launcher.java:108) ~[myapp.jar:0.0.1-SNAPSHOT]
+        at org.springframework.boot.loader.Launcher.launch(Launcher.java:58) ~[myapp.jar:0.0.1-SNAPSHOT]
+        at org.springframework.boot.loader.JarLauncher.main(JarLauncher.java:65) ~[myapp.jar:0.0.1-SNAPSHOT]
+Caused by: java.net.UnknownHostException: postgres
+        at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:572) ~[na:na]
+        at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327) ~[na:na]
+        at java.base/java.net.Socket.connect(Socket.java:633) ~[na:na]
+        at org.postgresql.core.PGStream.createSocket(PGStream.java:241) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.core.PGStream.<init>(PGStream.java:98) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:109) ~[postgresql-42.3.7.jar!/:42.3.7]
+        at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:235) ~[postgresql-42.3.7.jar!/:42.3.7]
+        ... 58 common frames omitted
+
+2024-05-27 17:16:14.853 ERROR 1 --- [           main] j.LocalContainerEntityManagerFactoryBean : Failed to initialize JPA EntityManagerFactory: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
+2024-05-27 17:16:14.857  WARN 1 --- [           main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Invocation of init method failed; nested exception is org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
+2024-05-27 17:16:14.879  INFO 1 --- [           main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-05-27 17:16:14.953  INFO 1 --- [           main] ConditionEvaluationReportLoggingListener :
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2024-05-27 17:16:15.076 ERROR 1 --- [           main] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Invocation of init method failed; nested exception is org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1804) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:620) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1154) ~[spring-context-5.3.23.jar!/:5.3.23]
+        at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:908) ~[spring-context-5.3.23.jar!/:5.3.23]
+        at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583) ~[spring-context-5.3.23.jar!/:5.3.23]
+        at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:147) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:734) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:408) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:308) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295) ~[spring-boot-2.7.5.jar!/:2.7.5]
+        at fr.takima.training.simpleapi.SimpleApiApplication.main(SimpleApiApplication.java:10) ~[classes!/:0.0.1-SNAPSHOT]
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+        at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+        at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+        at org.springframework.boot.loader.MainMethodRunner.run(MainMethodRunner.java:49) ~[myapp.jar:0.0.1-SNAPSHOT]
+        at org.springframework.boot.loader.Launcher.launch(Launcher.java:108) ~[myapp.jar:0.0.1-SNAPSHOT]
+        at org.springframework.boot.loader.Launcher.launch(Launcher.java:58) ~[myapp.jar:0.0.1-SNAPSHOT]
+        at org.springframework.boot.loader.JarLauncher.main(JarLauncher.java:65) ~[myapp.jar:0.0.1-SNAPSHOT]
+Caused by: org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:275) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:237) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:214) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory.injectServices(DefaultIdentifierGeneratorFactory.java:175) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.injectDependencies(AbstractServiceRegistryImpl.java:286) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:243) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:214) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.<init>(InFlightMetadataCollectorImpl.java:173) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:127) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1460) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1494) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58) ~[spring-orm-5.3.23.jar!/:5.3.23]
+        at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365) ~[spring-orm-5.3.23.jar!/:5.3.23]
+        at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409) ~[spring-orm-5.3.23.jar!/:5.3.23]
+        at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396) ~[spring-orm-5.3.23.jar!/:5.3.23]
+        at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:341) ~[spring-orm-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1863) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1800) ~[spring-beans-5.3.23.jar!/:5.3.23]
+        ... 24 common frames omitted
+Caused by: org.hibernate.HibernateException: Access to DialectResolutionInfo cannot be null when 'hibernate.dialect' not set
+        at org.hibernate.engine.jdbc.dialect.internal.DialectFactoryImpl.determineDialect(DialectFactoryImpl.java:100) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.engine.jdbc.dialect.internal.DialectFactoryImpl.buildDialect(DialectFactoryImpl.java:54) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:138) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:35) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:101) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:263) ~[hibernate-core-5.6.12.Final.jar!/:5.6.12.Final]
+        ... 41 common frames omitted
+
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\Backend\simple-api-student-main> docker network ls
+NETWORK ID     NAME                            DRIVER    SCOPE
+dc13bd50f540   app-network                     bridge    local
+4c2fdc0c9615   bridge                          bridge    local
+263d57375030   host                            host      local
+10321dc80aa9   myNetwork                       bridge    local
+5227f3e67245   none                            null      local
+1ad9d5542ad3   tp-bi-spark-framework_default   bridge    local
+26b7994c198c   tp-docker-kafka_default         bridge    local
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\Backend\simple-api-student-main> docker network inspect  app-network
+[
+    {
+        "Name": "app-network",
+        "Id": "dc13bd50f5408aab3d1a213b0c1f06d83214567d3849a6180d9579f70be127e8",
+        "Created": "2024-05-27T10:29:13.761315405Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "172.21.0.0/16",
+                    "Gateway": "172.21.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "0f509419ede8b76739251de1a8c5c1ee5003565dbb1b7c2299ef279d7b74b3b4": {
+                "Name": "postgres",
+                "EndpointID": "9556f7ec553713ec0b132e65a2036e62b5dae301eaeebf742ab87c52ae6f9e85",
+                "MacAddress": "02:42:ac:15:00:02",
+                "IPv4Address": "172.21.0.2/16",
+                "IPv6Address": ""
+            },
+            "f41320c971c9e84248047c42a2da49360639f15dd8250bfb070180af68e40111": {
+                "Name": "adminer",
+                "EndpointID": "b50469b4c9dea82b05c577a25f07855616ef58b17c8e16d35bceef60ceeaf6c9",
+                "MacAddress": "02:42:ac:15:00:03",
+                "IPv4Address": "172.21.0.3/16",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {},
+        "Labels": {}
+    }
+]
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\Backend\simple-api-student-main> docker run --name postgres -p 8081:8080 --network app-network .
+docker: invalid reference format.
+See 'docker run --help'.
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\Backend\simple-api-student-main> docker run --name postgres -p 8081:8080 --network app-network .^C
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\Backend\simple-api-student-main> docker run --name backend_api_adv -p 8081:8080 --network app-network .
+docker: invalid reference format.
+See 'docker run --help'.
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\Backend\simple-api-student-main> docker run --name backend_api_adv -p 8081:8080 --network app-network .
+docker: invalid reference format.
+See 'docker run --help'.
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\Backend\simple-api-student-main> docker build -t backend_api_adv .
+[+] Building 3.2s (14/14) FINISHED                                                                                                           docker:default
+ => [internal] load build definition from Dockerfile                                                                                                   0.1s
+ => => transferring dockerfile: 395B                                                                                                                   0.0s
+ => [internal] load metadata for docker.io/library/amazoncorretto:17                                                                                   2.4s
+ => [internal] load metadata for docker.io/library/maven:3.8.6-amazoncorretto-17                                                                       2.5s
+ => [internal] load .dockerignore                                                                                                                      0.0s
+ => => transferring context: 2B                                                                                                                        0.0s
+ => [stage-1 1/3] FROM docker.io/library/amazoncorretto:17@sha256:ffb6aebcaa434785a2ad0797ea8f38b33237abcd013f7613f8f6ac748e48ab02                     0.0s
+ => [internal] load build context                                                                                                                      0.2s
+ => => transferring context: 2.54kB                                                                                                                    0.1s
+ => [myapp-build 1/5] FROM docker.io/library/maven:3.8.6-amazoncorretto-17@sha256:f503dcd8524c0b6db676d2607c4b6f384f276f98aa914fb6ab761c58e96120c7     0.0s
+ => CACHED [stage-1 2/3] WORKDIR /opt/myapp                                                                                                            0.0s
+ => CACHED [myapp-build 2/5] WORKDIR /opt/myapp                                                                                                        0.0s
+ => CACHED [myapp-build 3/5] COPY pom.xml .                                                                                                            0.0s
+ => CACHED [myapp-build 4/5] COPY src ./src                                                                                                            0.0s
+ => CACHED [myapp-build 5/5] RUN mvn package -DskipTests                                                                                               0.0s
+ => CACHED [stage-1 3/3] COPY --from=myapp-build /opt/myapp/target/*.jar /opt/myapp/myapp.jar                                                          0.0s
+ => exporting to image                                                                                                                                 0.1s
+ => => exporting layers                                                                                                                                0.0s
+ => => writing image sha256:a138923b06a7cc82215c7a3743dd4a6f2040809c30cfd117c4e0cc0ad7fe81e1                                                           0.0s
+ => => naming to docker.io/library/backend_api_adv                                                                                                     0.0s
+
+What's Next?
+  View a summary of image vulnerabilities and recommendations → docker scout quickview
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\Backend\simple-api-student-main> docker run --name backend_api_adv -p 8081:8080 --network app-network .
+docker: invalid reference format.
+See 'docker run --help'.
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\Backend\simple-api-student-main> docker run --name backend_api_adv -p 8082:8080 --network app-network .
+docker: invalid reference format.
+See 'docker run --help'.
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\Backend\simple-api-student-main> docker run --name multistage_app2 -p 8082:8080 --network app-network backend_api_adv .
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.7.5)
+
+2024-05-27 20:49:51.510  INFO 1 --- [           main] f.t.t.simpleapi.SimpleApiApplication     : Starting SimpleApiApplication v0.0.1-SNAPSHOT using Java 17.0.11 on 0f76538e3689 with PID 1 (/opt/myapp/myapp.jar started by root in /opt/myapp)
+2024-05-27 20:49:51.518  INFO 1 --- [           main] f.t.t.simpleapi.SimpleApiApplication     : No active profile set, falling back to 1 default profile: "default"
+2024-05-27 20:49:54.438  INFO 1 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-27 20:49:54.590  INFO 1 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 123 ms. Found 2 JPA repository interfaces.
+2024-05-27 20:49:56.146  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2024-05-27 20:49:56.184  INFO 1 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-05-27 20:49:56.185  INFO 1 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.68]
+2024-05-27 20:49:56.421  INFO 1 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-05-27 20:49:56.422  INFO 1 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4455 ms
+2024-05-27 20:49:57.553  INFO 1 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-05-27 20:49:58.313  INFO 1 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-05-27 20:49:58.428  INFO 1 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-05-27 20:49:58.645  INFO 1 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.12.Final
+2024-05-27 20:49:59.350  INFO 1 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-05-27 20:49:59.864  INFO 1 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2024-05-27 20:50:01.175  INFO 1 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-05-27 20:50:01.196  INFO 1 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-05-27 20:50:03.330  INFO 1 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 6 endpoint(s) beneath base path '/actuator'
+2024-05-27 20:50:03.428  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2024-05-27 20:50:03.456  INFO 1 --- [           main] f.t.t.simpleapi.SimpleApiApplication     : Started SimpleApiApplication in 13.655 seconds (JVM running for 16.897)
+2024-05-27 20:53:21.275  INFO 1 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-05-27 20:53:21.383  INFO 1 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-05-27 20:53:21.478  INFO 1 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\Backend\simple-api-student-main> docker run --name multistage_app2 -p 8082:8080 --network app-network backend_api_adv
+docker: Error response from daemon: Conflict. The container name "/multistage_app2" is already in use by container "0f76538e3689c5320088bbb6a5853e06915505def92512691938fddcf9613402". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\Backend\simple-api-student-main> docker rm -f 0f76538e3689c5320088bbb6a5853e06915505def92512691938fddcf9613402
+0f76538e3689c5320088bbb6a5853e06915505def92512691938fddcf9613402
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\Backend\simple-api-student-main> docker run --name multistage_app2 -p 8082:8080 --network app-network backend_api_adv
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.7.5)
+
+2024-05-27 20:53:54.421  INFO 1 --- [           main] f.t.t.simpleapi.SimpleApiApplication     : Starting SimpleApiApplication v0.0.1-SNAPSHOT using Java 17.0.11 on c7ada2080e6b with PID 1 (/opt/myapp/myapp.jar started by root in /opt/myapp)
+2024-05-27 20:53:54.429  INFO 1 --- [           main] f.t.t.simpleapi.SimpleApiApplication     : No active profile set, falling back to 1 default profile: "default"
+2024-05-27 20:53:57.407  INFO 1 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-27 20:53:57.644  INFO 1 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 188 ms. Found 2 JPA repository interfaces.
+2024-05-27 20:53:59.680  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2024-05-27 20:53:59.743  INFO 1 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-05-27 20:53:59.744  INFO 1 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.68]
+2024-05-27 20:54:00.026  INFO 1 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-05-27 20:54:00.026  INFO 1 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 5409 ms
+2024-05-27 20:54:01.536  INFO 1 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-05-27 20:54:02.969  INFO 1 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-05-27 20:54:03.186  INFO 1 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-05-27 20:54:03.386  INFO 1 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.12.Final
+2024-05-27 20:54:04.172  INFO 1 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-05-27 20:54:04.727  INFO 1 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2024-05-27 20:54:05.965  INFO 1 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-05-27 20:54:05.984  INFO 1 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-05-27 20:54:08.105  INFO 1 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 6 endpoint(s) beneath base path '/actuator'
+2024-05-27 20:54:08.445  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2024-05-27 20:54:08.469  INFO 1 --- [           main] f.t.t.simpleapi.SimpleApiApplication     : Started SimpleApiApplication in 16.065 seconds (JVM running for 19.631)
+2024-05-27 20:58:13.696  INFO 1 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-05-27 20:58:13.742  INFO 1 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-05-27 20:58:13.791  INFO 1 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\Backend\simple-api-student-main> docker build -t backend_api_adv .
+[+] Building 0.0s (0/0)  docker:default
+[+] Building 2.7s (14/14) FINISHED                                                                                                           docker:default
+ => [internal] load build definition from Dockerfile                                                                                                   0.1s
+ => => transferring dockerfile: 415B                                                                                                                   0.1s
+ => [internal] load metadata for docker.io/library/amazoncorretto:17                                                                                   2.0s
+ => [internal] load metadata for docker.io/library/maven:3.8.6-amazoncorretto-17                                                                       2.0s
+ => [internal] load .dockerignore                                                                                                                      0.0s
+ => => transferring context: 2B                                                                                                                        0.0s
+ => [stage-1 1/3] FROM docker.io/library/amazoncorretto:17@sha256:ffb6aebcaa434785a2ad0797ea8f38b33237abcd013f7613f8f6ac748e48ab02                     0.0s
+ => [internal] load build context                                                                                                                      0.1s
+ => => transferring context: 2.54kB                                                                                                                    0.0s
+ => [myapp-build 1/5] FROM docker.io/library/maven:3.8.6-amazoncorretto-17@sha256:f503dcd8524c0b6db676d2607c4b6f384f276f98aa914fb6ab761c58e96120c7     0.0s
+ => CACHED [stage-1 2/3] WORKDIR /opt/myapp                                                                                                            0.0s
+ => CACHED [myapp-build 2/5] WORKDIR /opt/myapp                                                                                                        0.0s
+ => CACHED [myapp-build 3/5] COPY pom.xml .                                                                                                            0.0s
+ => CACHED [myapp-build 4/5] COPY src ./src                                                                                                            0.0s
+ => CACHED [myapp-build 5/5] RUN mvn package -DskipTests                                                                                               0.0s
+ => CACHED [stage-1 3/3] COPY --from=myapp-build /opt/myapp/target/*.jar /opt/myapp/myapp.jar                                                          0.0s
+ => exporting to image                                                                                                                                 0.1s
+ => => exporting layers                                                                                                                                0.0s
+ => => writing image sha256:bfdd5963b034b60a7119b5f78b4df83fbae0028c721c40e33502bd9cd6045a93                                                           0.0s
+ => => naming to docker.io/library/backend_api_adv                                                                                                     0.0s
+
+What's Next?
+  View a summary of image vulnerabilities and recommendations → docker scout quickview
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\Backend\simple-api-student-main> docker run -d --name multistage_app2 -p 8082:8080 --network app-network backend_api_adv
+992f92e5ebdee4f1a64208aa46dc0b5d75bbf405c73a3c58c792e3f3d8debdf0
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\Backend\simple-api-student-main> cd ""^C
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\Backend\simple-api-student-main> cd "C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1"
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1> ls
+
+
+    Directory: C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+da---l        27/05/2024     23:11                Backend
+da---l        28/05/2024     07:53                httpd
+da---l        27/05/2024     12:09                postgres
+da---l        27/05/2024     17:48                target
+-a---l        27/05/2024     18:41           1202 README.md
+-a---l        27/05/2024     11:10         411317 TP part 01 - Docker - Devops.pdf
+
+
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1> cd httpd
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\httpd> docker build -t apache-reverse-proxy .
+[+] Building 5.8s (8/8) FINISHED                                                                                                             docker:default
+ => [internal] load build definition from Dockerfile                                                                                                   0.2s
+ => => transferring dockerfile: 300B                                                                                                                   0.1s
+ => [internal] load metadata for docker.io/library/httpd:2.4                                                                                           3.0s
+ => [internal] load .dockerignore                                                                                                                      0.0s
+ => => transferring context: 2B                                                                                                                        0.0s
+ => [1/3] FROM docker.io/library/httpd:2.4@sha256:43c7661a3243c04b0955c81ac994ea13a1d8a1e53c15023a7b3cd5e8bb25de3c                                     0.5s
+ => [internal] load build context                                                                                                                      0.3s
+ => => transferring context: 576B                                                                                                                      0.3s
+ => [2/3] COPY index.html /usr/local/apache2/htdocs/                                                                                                   0.3s
+ => [3/3] COPY httpd.conf /usr/local/apache2/conf/httpd.conf                                                                                           0.2s
+ => exporting to image                                                                                                                                 0.5s
+ => => exporting layers                                                                                                                                0.3s
+ => => writing image sha256:a2fa92f5fef87a68e3ced5a30a7e15e807f2253867d8fa3abb2bcd2bc05518d9                                                           0.0s
+ => => naming to docker.io/library/apache-reverse-proxy                                                                                                0.1s
+
+What's Next?
+  View a summary of image vulnerabilities and recommendations → docker scout quickview
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\httpd> docker run -d --name apache-reverse-proxy -p 80:80 apache-reverse-proxy
+8a6db09cc67316e01a9e1f00ecb23daa493a3ab899e5f96e600879707792c765
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\httpd> docker stats apache-reverse-proxy
+CONTAINER ID   NAME                   CPU %     MEM USAGE / LIMIT   MEM %     NET I/O   BLOCK I/O   PIDS
+8a6db09cc673   apache-reverse-proxy   0.00%     0B / 0B             0.00%     0B / 0B   0B / 0B     0
+CONTAINER ID   NAME                   CPU %     MEM USAGE / LIMIT   MEM %     NET I/O   BLOCK I/O   PIDS
+8a6db09cc673   apache-reverse-proxy   0.00%     0B / 0B             0.00%     0B / 0B   0B / 0B     0
+CONTAINER ID   NAME                   CPU %     MEM USAGE / LIMIT   MEM %     NET I/O   BLOCK I/O   PIDS
+8a6db09cc673   apache-reverse-proxy   0.00%     0B / 0B             0.00%     0B / 0B   0B / 0B     0
+CONTAINER ID   NAME                   CPU %     MEM USAGE / LIMIT   MEM %     NET I/O   BLOCK I/O   PIDS
+8a6db09cc673   apache-reverse-proxy   0.00%     0B / 0B             0.00%     0B / 0B   0B / 0B     0
+CONTAINER ID   NAME                   CPU %     MEM USAGE / LIMIT   MEM %     NET I/O   BLOCK I/O   PIDS
+8a6db09cc673   apache-reverse-proxy   0.00%     0B / 0B             0.00%     0B / 0B   0B / 0B     0
+CONTAINER ID   NAME                   CPU %     MEM USAGE / LIMIT   MEM %     NET I/O   BLOCK I/O   PIDS
+8a6db09cc673   apache-reverse-proxy   0.00%     0B / 0B             0.00%     0B / 0B   0B / 0B     0
+CONTAINER ID   NAME                   CPU %     MEM USAGE / LIMIT   MEM %     NET I/O   BLOCK I/O   PIDS
+8a6db09cc673   apache-reverse-proxy   0.00%     0B / 0B             0.00%     0B / 0B   0B / 0B     0
+CONTAINER ID   NAME                   CPU %     MEM USAGE / LIMIT   MEM %     NET I/O   BLOCK I/O   PIDS
+8a6db09cc673   apache-reverse-proxy   0.00%     0B / 0B             0.00%     0B / 0B   0B / 0B     0
+CONTAINER ID   NAME                   CPU %     MEM USAGE / LIMIT   MEM %     NET I/O   BLOCK I/O   PIDS
+8a6db09cc673   apache-reverse-proxy   0.00%     0B / 0B             0.00%     0B / 0B   0B / 0B     0
+CONTAINER ID   NAME                   CPU %     MEM USAGE / LIMIT   MEM %     NET I/O   BLOCK I/O   PIDS
+8a6db09cc673   apache-reverse-proxy   0.00%     0B / 0B             0.00%     0B / 0B   0B / 0B     0
+CONTAINER ID   NAME                   CPU %     MEM USAGE / LIMIT   MEM %     NET I/O   BLOCK I/O   PIDS
+8a6db09cc673   apache-reverse-proxy   0.00%     0B / 0B             0.00%     0B / 0B   0B / 0B     0
+CONTAINER ID   NAME                   CPU %     MEM USAGE / LIMIT   MEM %     NET I/O   BLOCK I/O   PIDS
+8a6db09cc673   apache-reverse-proxy   0.00%     0B / 0B             0.00%     0B / 0B   0B / 0B     0
+CONTAINER ID   NAME                   CPU %     MEM USAGE / LIMIT   MEM %     NET I/O   BLOCK I/O   PIDS
+8a6db09cc673   apache-reverse-proxy   0.00%     0B / 0B             0.00%     0B / 0B   0B / 0B     0
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\httpd> docker inspect apache-reverse-proxy
+[
+    {
+        "Id": "8a6db09cc67316e01a9e1f00ecb23daa493a3ab899e5f96e600879707792c765",
+        "Created": "2024-05-28T05:56:35.046693199Z",
+        "Path": "httpd-foreground",
+        "Args": [],
+        "State": {
+            "Status": "exited",
+            "Running": false,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 0,
+            "ExitCode": 1,
+            "Error": "",
+            "StartedAt": "2024-05-28T05:56:39.451038032Z",
+            "FinishedAt": "2024-05-28T05:56:39.566754973Z"
+        },
+        "Image": "sha256:a2fa92f5fef87a68e3ced5a30a7e15e807f2253867d8fa3abb2bcd2bc05518d9",
+        "ResolvConfPath": "/var/lib/docker/containers/8a6db09cc67316e01a9e1f00ecb23daa493a3ab899e5f96e600879707792c765/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/8a6db09cc67316e01a9e1f00ecb23daa493a3ab899e5f96e600879707792c765/hostname",
+        "HostsPath": "/var/lib/docker/containers/8a6db09cc67316e01a9e1f00ecb23daa493a3ab899e5f96e600879707792c765/hosts",
+        "LogPath": "/var/lib/docker/containers/8a6db09cc67316e01a9e1f00ecb23daa493a3ab899e5f96e600879707792c765/8a6db09cc67316e01a9e1f00ecb23daa493a3ab899e5f96e600879707792c765-json.log",
+        "Name": "/apache-reverse-proxy",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": null,
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "bridge",
+            "PortBindings": {
+                "80/tcp": [
+                    {
+                        "HostIp": "",
+                        "HostPort": "80"
+                    }
+                ]
+            },
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                44,
+                156
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "host",
+            "Dns": [],
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": null,
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": [],
+            "BlkioDeviceReadBps": [],
+            "BlkioDeviceWriteBps": [],
+            "BlkioDeviceReadIOps": [],
+            "BlkioDeviceWriteIOps": [],
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": [],
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": false,
+            "PidsLimit": null,
+            "Ulimits": [],
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "MaskedPaths": [
+                "/proc/asound",
+                "/proc/acpi",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/sys/firmware",
+                "/sys/devices/virtual/powercap"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ]
+        },
+        "GraphDriver": {
+            "Data": {
+                "LowerDir": "/var/lib/docker/overlay2/9bc1cf83004538284f8e4728df8c5eb515ad1bfa4cae8e75fd7dc346c38c6b82-init/diff:/var/lib/docker/overlay2/ui2ol5pmdumdhbkct3rcnia1x/diff:/var/lib/docker/overlay2/qedrbx1wg8gaveun1ulyza2td/diff:/var/lib/docker/overlay2/c08ac525b3fadac10b4ea0ddce791730034929ff36943efa2810d6c496fe8a40/diff:/var/lib/docker/overlay2/9cf94894ee53839ac08b51872b0565572ddc7d7118f41e4fc6438ec9a9594947/diff:/var/lib/docker/overlay2/c167ae674be3328211a6ac7817af23cee50ed27ca9720b40f2794dcc21182c7b/diff:/var/lib/docker/overlay2/e7351646de59f7fd0bbb53e48c822ed8a59356af2cec136390487d67e407072e/diff:/var/lib/docker/overlay2/1c58ccd41c27f24ac06faf9fa82800dc989270948acc407780d3e6025e1c3f9a/diff:/var/lib/docker/overlay2/053ef7c1fd79c6a749c718406347b48948e8ec0d1c8defcb23ea2e59c07d5f17/diff",
+                "MergedDir": "/var/lib/docker/overlay2/9bc1cf83004538284f8e4728df8c5eb515ad1bfa4cae8e75fd7dc346c38c6b82/merged",
+                "UpperDir": "/var/lib/docker/overlay2/9bc1cf83004538284f8e4728df8c5eb515ad1bfa4cae8e75fd7dc346c38c6b82/diff",
+                "WorkDir": "/var/lib/docker/overlay2/9bc1cf83004538284f8e4728df8c5eb515ad1bfa4cae8e75fd7dc346c38c6b82/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [],
+        "Config": {
+            "Hostname": "8a6db09cc673",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "80/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/local/apache2/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "HTTPD_PREFIX=/usr/local/apache2",
+                "HTTPD_VERSION=2.4.59",
+                "HTTPD_SHA256=ec51501ec480284ff52f637258135d333230a7d229c3afa6f6c2f9040e321323",
+                "HTTPD_PATCHES="
+            ],
+            "Cmd": [
+                "httpd-foreground"
+            ],
+            "Image": "apache-reverse-proxy",
+            "Volumes": null,
+            "WorkingDir": "/usr/local/apache2",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {},
+            "StopSignal": "SIGWINCH"
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "dd06c808ff07fac8282d66ff7194f251b148a0459610e043ab7c5336fee401f1",
+            "SandboxKey": "/var/run/docker/netns/dd06c808ff07",
+            "Ports": {},
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "",
+            "Gateway": "",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "",
+            "IPPrefixLen": 0,
+            "IPv6Gateway": "",
+            "MacAddress": "",
+            "Networks": {
+                "bridge": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "MacAddress": "",
+                    "NetworkID": "4c2fdc0c9615ad7e7cba7d89f3ac8c573bab1679f20f1ae19af1dc0d85c30126",
+                    "EndpointID": "",
+                    "Gateway": "",
+                    "IPAddress": "",
+                    "IPPrefixLen": 0,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DriverOpts": null,
+                    "DNSNames": null
+                }
+            }
+        }
+    }
+]
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\httpd> docker run -d --name apache-reverse-proxy -p 80:80 apache-reverse-proxy^C
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\httpd> docker build -t apache-reverse-proxy .
+[+] Building 2.1s (8/8) FINISHED                                                                                                             docker:default
+ => [internal] load build definition from Dockerfile                                                                                                   0.1s
+ => => transferring dockerfile: 300B                                                                                                                   0.0s
+ => [internal] load metadata for docker.io/library/httpd:2.4                                                                                           0.8s
+ => [internal] load .dockerignore                                                                                                                      0.1s
+ => => transferring context: 2B                                                                                                                        0.0s
+ => [1/3] FROM docker.io/library/httpd:2.4@sha256:43c7661a3243c04b0955c81ac994ea13a1d8a1e53c15023a7b3cd5e8bb25de3c                                     0.0s
+ => [internal] load build context                                                                                                                      0.1s
+ => => transferring context: 384B                                                                                                                      0.1s
+ => CACHED [2/3] COPY index.html /usr/local/apache2/htdocs/                                                                                            0.0s
+ => [3/3] COPY httpd.conf /usr/local/apache2/conf/httpd.conf                                                                                           0.2s
+ => exporting to image                                                                                                                                 0.2s
+ => => exporting layers                                                                                                                                0.1s
+ => => writing image sha256:de59eedabf5e35dcde16ff53d0854327f66ce6220bc81de2598766a42fbaf7f4                                                           0.0s
+ => => naming to docker.io/library/apache-reverse-proxy                                                                                                0.0s
+
+What's Next?
+  View a summary of image vulnerabilities and recommendations → docker scout quickview
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\httpd> docker run -d --name apache-reverse-proxy -p 81:80 apache-reverse-proxy
+cf53d3a631f15944223247419de773335dfea931e798aad6d2da448009573d3e
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\httpd> docker logs apache-reverse-proxy
+AH00534: httpd: Configuration error: No MPM loaded.
+AH00534: httpd: Configuration error: No MPM loaded.
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\httpd> docker build -t apache-reverse-proxy .
+[+] Building 0.0s (0/0)  docker:default
+[+] Building 3.3s (8/8) FINISHED                                                                                                             docker:default
+ => [internal] load build definition from Dockerfile                                                                                                   0.1s
+ => => transferring dockerfile: 300B                                                                                                                   0.0s
+ => [internal] load metadata for docker.io/library/httpd:2.4                                                                                           2.1s
+ => [internal] load .dockerignore                                                                                                                      0.0s
+ => => transferring context: 2B                                                                                                                        0.0s
+ => [internal] load build context                                                                                                                      0.1s
+ => => transferring context: 440B                                                                                                                      0.1s
+ => [1/3] FROM docker.io/library/httpd:2.4@sha256:43c7661a3243c04b0955c81ac994ea13a1d8a1e53c15023a7b3cd5e8bb25de3c                                     0.0s
+ => CACHED [2/3] COPY index.html /usr/local/apache2/htdocs/                                                                                            0.0s
+ => [3/3] COPY httpd.conf /usr/local/apache2/conf/httpd.conf                                                                                           0.2s
+ => exporting to image                                                                                                                                 0.3s
+ => => exporting layers                                                                                                                                0.2s
+ => => writing image sha256:bfa6f8d295e4806ba2384a6c43fbd02a32207bc5b442529fa846a06e4c2215c1                                                           0.0s
+ => => naming to docker.io/library/apache-reverse-proxy                                                                                                0.0s
+
+What's Next?
+  View a summary of image vulnerabilities and recommendations → docker scout quickview
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\httpd> docker run -d --name apache-reverse-proxy --network app-network -p 80:80 apache-reverse-proxy
+ea0b99c42f3c4b8427ce08f84e69d9c1650c0405620ee19a997e7dcad7abf7b1
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\httpd> docker logs apache-reverse-proxy
+no listening sockets available, shutting down
+AH00015: Unable to open logs
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\httpd> netstat -ano | findstr :80
+  TCP    0.0.0.0:80             0.0.0.0:0              LISTENING       5180
+  TCP    0.0.0.0:8080           0.0.0.0:0              LISTENING       8308
+  TCP    0.0.0.0:8082           0.0.0.0:0              LISTENING       8308
+  TCP    0.0.0.0:8090           0.0.0.0:0              LISTENING       8308
+  TCP    [::]:80                [::]:0                 LISTENING       5180
+  TCP    [::]:8080              [::]:0                 LISTENING       8308
+  TCP    [::]:8082              [::]:0                 LISTENING       8308
+  TCP    [::]:8090              [::]:0                 LISTENING       8308
+  TCP    [::1]:8080             [::]:0                 LISTENING       20336
+  TCP    [::1]:8082             [::]:0                 LISTENING       20336
+  TCP    [::1]:8090             [::]:0                 LISTENING       20336
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\httpd> tasklist /FI "PID eq 5180"
+
+Image Name                     PID Session Name        Session#    Mem Usage
+========================= ======== ================ =========== ============
+httpd.exe                     5180 Services                   0        956 K
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\httpd> taskkill /PID 5180 /F
+ERROR: The process with PID 5180 could not be terminated.
+Reason: Access is denied.
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\httpd> docker run -d --name apache-reverse-proxy --network app-network -p 8084:80 apache-reverse-proxy
+1c173a0e04dd6d45194a5652b5fb7674e9d7340e4cafb590028cf8a7e1bf4b01
+PS C:\Users\dewmi\OneDrive - Fondation EPF\Uni\4eme Année\DevOps\TP\TP1\httpd>

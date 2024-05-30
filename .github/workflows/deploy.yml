@@ -1,0 +1,37 @@
+name: Deploy #d
+
+on:
+  workflow_run:
+    workflows: ["CI devops 2024"]
+    types:
+      - completed
+
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2.5.0
+
+
+      - name: Setup SSH and known hosts
+        uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+
+      - name: Install Ansible
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ansible
+
+
+      - name: Disable host key checking
+        run: echo "ANSIBLE_HOST_KEY_CHECKING=False" >> $GITHUB_ENV
+
+
+      - name: Deploy to production server
+        run: |
+          ansible-playbook -i my-project/ansible/inventories/setup.yml my-project/ansible/playbook_app.yml

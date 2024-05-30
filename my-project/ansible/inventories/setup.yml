@@ -1,0 +1,8 @@
+
+all:
+  vars:
+    ansible user: centos
+    ansible ssh_private key file: ~/.ssh/id_rsa
+  children:
+    prod:
+      hosts: dinura.weerasena.takima.cloud

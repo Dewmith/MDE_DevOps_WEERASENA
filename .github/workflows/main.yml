@@ -2,9 +2,9 @@ name: CI devops 2024
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main]
   pull_request:
-    branches: [main, develop]
+    branches: [main]
 
 jobs:
   test-backend:
@@ -37,21 +37,21 @@ jobs:
         with:
           context: ./Backend/simple-api-student-main
           tags: ${{ secrets.DOCKER_USERNAME }}/tp1-backend:latest
-          push: ${{ github.ref == 'refs/heads/develop' }}
+          push: ${{ github.ref == 'refs/heads/main' }}
 
       - name: Build image and push database
         uses: docker/build-push-action@v3
         with:
           context: ./postgres
           tags: ${{ secrets.DOCKER_USERNAME }}/tp1-database:latest
-          push: ${{ github.ref == 'refs/heads/develop' }}
+          push: ${{ github.ref == 'refs/heads/main' }}
 
       - name: Build image and push httpd
         uses: docker/build-push-action@v3
         with:
           context: ./httpd
           tags: ${{ secrets.DOCKER_USERNAME }}/tp1-httpd:latest
-          push: ${{ github.ref == 'refs/heads/develop' }}
+          push: ${{ github.ref == 'refs/heads/main' }}
 
   deploy:
     needs: build-and-push-docker-image

@@ -1,0 +1,29 @@
+
+# launching the proxy(frontend)
+- name: Launch frontend container
+  docker_container:
+    name: launch_proxy
+    image: deghostt/tp1-httpd:latest
+    state: started
+    ports:
+      - "80:80"
+    networks:
+      - name: app-network
+    env:
+      API_URL: "http://backend:8080/api"
+      DB_HOST: "prostgres"
+      DB_USER: "usr"
+      DB_PASSWORD: "pwd"
+      DB_NAME: "db"
+    user: root
+    privileged: true
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+
+
+
+
+
+
+    
+

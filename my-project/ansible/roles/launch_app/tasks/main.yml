@@ -1,0 +1,17 @@
+# launching the backend
+
+- name: Launch application container
+  docker_container:
+    name: multistage_app2
+    image: deghostt/tp1-backend:latest
+    networks:
+      - name: app-network
+    ports:
+      - "8080:8080"
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+
+
+
+
+- 

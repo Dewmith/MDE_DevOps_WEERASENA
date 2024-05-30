@@ -1,0 +1,4 @@
+- name: Install Python 3 and pip3
+  command: yum install -y python3 python3-pip
+  args:
+    creates: /usr/bin/python3

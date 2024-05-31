@@ -10,8 +10,3 @@
       - "8080:8080"
   vars:
     ansible_python_interpreter: /usr/bin/python3
-
-
-
-
-- 
